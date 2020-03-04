@@ -70,21 +70,23 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 [x, fs] = audioread(<span class="string">'rock.wav'</span>);
 <span class="comment">% &#1075;&#1088;&#1072;&#1092;&#1080;&#1082;&#1080; &#1080;&#1089;&#1093;&#1086;&#1076;&#1085;&#1086;&#1075;&#1086; &#1089;&#1080;&#1075;&#1085;&#1072;&#1083;&#1072; &#1076;&#1074;&#1072; &#1082;&#1072;&#1085;&#1072;&#1083;&#1072;</span>
-subplot(2, 1, 1);
-plot(x(:, 1)); grid <span class="string">on</span>;
+subplot(3, 1, 1);
+plot(x(:, 1)); grid <span class="string">on</span>; title(<span class="string">'&#1048;&#1089;&#1093;&#1086;&#1076;&#1085;&#1099;&#1081; &#1089;&#1080;&#1075;&#1085;&#1072;&#1083;'</span>);
 <span class="comment">%subplot(2, 1, 2);</span>
 <span class="comment">%plot(x(:, 2)); grid on;</span>
 
 a = 0.7; <span class="comment">%&#1072;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;</span>
 d = 5000; <span class="comment">%&#1082;&#1086;&#1083;&#1080;&#1095;&#1077;&#1089;&#1090;&#1074;&#1086; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1086;&#1074; &#1076;&#1083;&#1103; &#1079;&#1072;&#1076;&#1077;&#1088;&#1078;&#1082;&#1080;</span>
-<span class="comment">%{
-</span><span class="comment">y = zeros(size(x));
-</span><span class="comment">y = x;
-</span><span class="comment">for i = d+1 : length(x)
-</span><span class="comment">    y(i) = x(i) + a*x(i-d);
-</span><span class="comment">end
-</span><span class="comment">%}
-</span>
+
+z = zeros(size(x));
+z = x;
+<span class="keyword">for</span> i = d+1 : length(x)
+    z(i) = x(i) + a*x(i-d);
+<span class="keyword">end</span>
+
+subplot(3, 1, 2);
+plot(z(:, 1)); grid <span class="string">on</span>;  title(<span class="string">'&#1057;&#1080;&#1075;&#1085;&#1072;&#1083; &#1089; &#1101;&#1092;&#1077;&#1082;&#1090;&#1086;&#1084; &#1101;&#1093;&#1086;'</span>);
+
 N = length(x);
 
 delay_cnt = 3*fs;
@@ -96,20 +98,24 @@ n_rep = round(N / length(delay));
 delay = repmat(delay, 1, n_rep+1);
 
 y = zeros(1, N);
+y = y';
 <span class="keyword">for</span> i = 1 : N
-    n = i - delay(i);
-    <span class="keyword">if</span> n&gt;0
-        y(i)=x(i)+x(i);
+    n = delay(i);
+    <span class="keyword">if</span> n &gt; 0
+        y(i)=x(i)+x(n);
     <span class="keyword">else</span>
         y(i)= x(i);
     <span class="keyword">end</span>
 <span class="keyword">end</span>
-<span class="comment">%}</span>
-audiowrite(<span class="string">'rock-out.wav'</span>, y, fs);
 
-<span class="keyword">for</span> i = d+1 : length(x)
-    y(i) = x(i);
-<span class="keyword">end</span>
+audiowrite(<span class="string">'rock-out.wav'</span>, y, fs);
+<span class="comment">%{
+</span><span class="comment">for i = d+1 : length(x)
+</span><span class="comment">    y(i) = x(i);
+</span><span class="comment">end
+</span><span class="comment">%}
+</span>subplot(3, 1, 3);
+plot(y); grid <span class="string">on</span>;  title(<span class="string">'&#1057;&#1080;&#1075;&#1085;&#1072;&#1083; &#1089; &#1101;&#1092;&#1077;&#1082;&#1090;&#1086;&#1084; &#1092;&#1083;&#1077;&#1085;&#1076;&#1078;&#1077;&#1088;'</span>);
 
 sound(y(1 : 100000), fs);
 </pre><pre class="codeoutput">Warning: Data clipped when writing file. 
@@ -119,20 +125,22 @@ clear;
 
 [x, fs] = audioread('rock.wav');
 % графики исходного сигнала два канала
-subplot(2, 1, 1);
-plot(x(:, 1)); grid on;
+subplot(3, 1, 1);
+plot(x(:, 1)); grid on; title('Исходный сигнал');
 %subplot(2, 1, 2);
 %plot(x(:, 2)); grid on;
 
 a = 0.7; %амплитуда
 d = 5000; %количество отсчетов для задержки
-%{
-y = zeros(size(x));
-y = x;
+
+z = zeros(size(x));
+z = x;
 for i = d+1 : length(x)
-    y(i) = x(i) + a*x(i-d);
+    z(i) = x(i) + a*x(i-d);
 end
-%}
+
+subplot(3, 1, 2);
+plot(z(:, 1)); grid on;  title('Сигнал с эфектом эхо');
 
 N = length(x);
 
@@ -145,20 +153,24 @@ n_rep = round(N / length(delay));
 delay = repmat(delay, 1, n_rep+1);
 
 y = zeros(1, N);
+y = y';
 for i = 1 : N
-    n = i - delay(i);
-    if n>0
-        y(i)=x(i)+x(i);
+    n = delay(i);
+    if n > 0
+        y(i)=x(i)+x(n);
     else
         y(i)= x(i);
     end
 end
-%}
-audiowrite('rock-out.wav', y, fs);
 
+audiowrite('rock-out.wav', y, fs);
+%{
 for i = d+1 : length(x)
     y(i) = x(i);
 end
+%}
+subplot(3, 1, 3);
+plot(y); grid on;  title('Сигнал с эфектом фленджер');
 
 sound(y(1 : 100000), fs);
 ##### SOURCE END #####

@@ -71,7 +71,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 [x, Fs] = audioread(<span class="string">'rock.wav'</span>);
 
 subplot(2, 1, 1);
-plot(x(:, 1)); grid <span class="string">on</span>;
+plot(x(:, 1)); grid <span class="string">on</span>;  title(<span class="string">'&#1048;&#1089;&#1093;&#1086;&#1076;&#1085;&#1099;&#1081; &#1089;&#1080;&#1075;&#1085;&#1072;&#1083;'</span>);
 <span class="comment">%subplot(2, 1, 2);</span>
 <span class="comment">%plot(x(:, 2)); grid on;</span>
 
@@ -96,7 +96,7 @@ y = x;
 
 <span class="comment">%plot(y); grid on</span>
 subplot(2, 1, 2);
-plot(y(:, 1)); grid <span class="string">on</span>;
+plot(y(:, 1)); grid <span class="string">on</span>;  title(<span class="string">'&#1057;&#1080;&#1075;&#1085;&#1083;&#1072; &#1089; &#1101;&#1092;&#1077;&#1082;&#1090;&#1086;&#1084; &#1076;&#1080;&#1089;&#1090;&#1086;&#1088;&#1096;&#1085;'</span>);
 audiowrite(<span class="string">'Distortion-out.wav'</span>, y, Fs)
 
 sound (y(1 : 100000), Fs)
@@ -107,7 +107,7 @@ clear;
 [x, Fs] = audioread('rock.wav');
 
 subplot(2, 1, 1);
-plot(x(:, 1)); grid on;
+plot(x(:, 1)); grid on;  title('Исходный сигнал');
 %subplot(2, 1, 2);
 %plot(x(:, 2)); grid on;
 
@@ -132,7 +132,7 @@ end
 
 %plot(y); grid on
 subplot(2, 1, 2);
-plot(y(:, 1)); grid on;
+plot(y(:, 1)); grid on;  title('Сигнла с эфектом дисторшн');
 audiowrite('Distortion-out.wav', y, Fs)
 
 sound (y(1 : 100000), Fs)

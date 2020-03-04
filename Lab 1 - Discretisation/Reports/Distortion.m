@@ -3,7 +3,7 @@ clear;
 [x, Fs] = audioread('rock.wav');
 
 subplot(2, 1, 1);
-plot(x(:, 1)); grid on;
+plot(x(:, 1)); grid on;  title('Исходный сигнал');
 %subplot(2, 1, 2);
 %plot(x(:, 2)); grid on;
 
@@ -28,7 +28,7 @@ end
 
 %plot(y); grid on
 subplot(2, 1, 2);
-plot(y(:, 1)); grid on;
+plot(y(:, 1)); grid on;  title('Сигнла с эфектом дисторшн');
 audiowrite('Distortion-out.wav', y, Fs)
 
 sound (y(1 : 100000), Fs)

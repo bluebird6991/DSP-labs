@@ -79,16 +79,54 @@ fs3 = 18000;
 ts1 = min : 1/fs1 : max;
 ts2 = min : 1/fs2 : max;
 ts3 = min : 1/fs3 : max;
+ts4 = min : 1/fs3 : max;
+ts5 = min : 1/fs3 : max;
 
 x1 = sin(2*pi*f*ts1);
 x2 = sin(2*pi*f*ts2);
 x3 = sin(2*pi*f*ts3);
 
-plot(ts1, x1, <span class="string">'-ro'</span>, ts2, x2, <span class="string">'-b&gt;'</span>, ts3, x3, <span class="string">'-g.'</span>); grid <span class="string">on</span>;
-title(<span class="string">'Discretisations'</span>);
+x4 = 3 * sin(2*pi*f*ts4);
+x5 = 1 / 3 * sin(2*pi*f*ts5);
+
+subplot(4, 1, 1)
+plot(ts1, x1, <span class="string">'-ro'</span>, ts2, x2, <span class="string">'-b&gt;'</span>, ts3, x3, <span class="string">'-g.'</span>); grid <span class="string">on</span>; title(<span class="string">'&#1048;&#1089;&#1093;&#1086;&#1076;&#1085;&#1099;&#1081; &#1089;&#1080;&#1075;&#1085;&#1072;&#1083;'</span>);
 xlabel(<span class="string">'&#1074;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1099;&#1077; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1099;'</span>);
 ylabel(<span class="string">'&#1040;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;'</span>);
-</pre><img vspace="5" hspace="5" src="Discretisation_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+
+subplot(4, 1, 2);
+plot(ts1, x1, <span class="string">'-ro'</span>); grid <span class="string">on</span>; title(<span class="string">'&#1063;&#1072;&#1089;&#1090;&#1086;&#1090;&#1072; &#1076;&#1080;&#1089;&#1082;&#1088;&#1077;&#1090;&#1080;&#1079;&#1072;&#1094;&#1080;&#1080; 900'</span>);
+xlabel(<span class="string">'&#1074;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1099;&#1077; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1099;'</span>);
+ylabel(<span class="string">'&#1040;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;'</span>);
+
+subplot(4, 1, 3);
+plot(ts2, x2, <span class="string">'-b&gt;'</span>); grid <span class="string">on</span>; title(<span class="string">'&#1063;&#1072;&#1089;&#1090;&#1086;&#1090;&#1072; &#1076;&#1080;&#1089;&#1082;&#1088;&#1077;&#1090;&#1080;&#1079;&#1072;&#1094;&#1080;&#1080; 2000'</span>);
+xlabel(<span class="string">'&#1074;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1099;&#1077; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1099;'</span>);
+ylabel(<span class="string">'&#1040;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;'</span>);
+
+subplot(4, 1, 4);
+plot(ts3, x3, <span class="string">'-g.'</span>); grid <span class="string">on</span>; title(<span class="string">'&#1063;&#1072;&#1089;&#1090;&#1086;&#1090;&#1072; &#1076;&#1080;&#1089;&#1082;&#1088;&#1077;&#1090;&#1080;&#1079;&#1072;&#1094;&#1080;&#1080; 1800'</span>);
+xlabel(<span class="string">'&#1074;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1099;&#1077; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1099;'</span>);
+ylabel(<span class="string">'&#1040;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;'</span>);
+
+figure;
+subplot(2, 1, 1);
+plot(ts4, x4, <span class="string">'-ro'</span>); grid <span class="string">on</span>; title(<span class="string">'&#1059;&#1074;&#1080;&#1083;&#1080;&#1095;&#1080;&#1083;&#1080; &#1072;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1091; &#1074; 3 &#1088;&#1072;&#1079;&#1072;'</span>);
+xlabel(<span class="string">'&#1074;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1099;&#1077; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1099;'</span>);
+ylabel(<span class="string">'&#1040;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;'</span>);
+
+subplot(2, 1, 2);
+plot(ts5, x5, <span class="string">'-ro'</span>); grid <span class="string">on</span>; title(<span class="string">'&#1059;&#1084;&#1077;&#1085;&#1100;&#1096;&#1080;&#1083;&#1080; &#1072;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1091; &#1074; 3 &#1088;&#1072;&#1079;&#1072;'</span>);
+xlabel(<span class="string">'&#1074;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1099;&#1077; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1099;'</span>);
+ylabel(<span class="string">'&#1040;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;'</span>);
+
+<span class="comment">%subplot(4, 1, 4);</span>
+<span class="comment">%plot(ts4, x4, '-ro') grid on;</span>
+
+<span class="comment">%title('Discretisations');</span>
+xlabel(<span class="string">'&#1074;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1099;&#1077; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1099;'</span>);
+ylabel(<span class="string">'&#1040;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;'</span>);
+</pre><img vspace="5" hspace="5" src="Discretisation_01.png" alt=""> <img vspace="5" hspace="5" src="Discretisation_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 clear;
 
@@ -103,13 +141,51 @@ fs3 = 18000;
 ts1 = min : 1/fs1 : max;
 ts2 = min : 1/fs2 : max;
 ts3 = min : 1/fs3 : max;
+ts4 = min : 1/fs3 : max;
+ts5 = min : 1/fs3 : max;
 
 x1 = sin(2*pi*f*ts1);
 x2 = sin(2*pi*f*ts2);
 x3 = sin(2*pi*f*ts3);
 
-plot(ts1, x1, '-ro', ts2, x2, '-b>', ts3, x3, '-g.'); grid on;
-title('Discretisations');
+x4 = 3 * sin(2*pi*f*ts4);
+x5 = 1 / 3 * sin(2*pi*f*ts5);
+
+subplot(4, 1, 1)
+plot(ts1, x1, '-ro', ts2, x2, '-b>', ts3, x3, '-g.'); grid on; title('Исходный сигнал');
+xlabel('временные отсчеты');
+ylabel('Амплитуда');
+
+subplot(4, 1, 2);
+plot(ts1, x1, '-ro'); grid on; title('Частота дискретизации 900');
+xlabel('временные отсчеты');
+ylabel('Амплитуда');
+
+subplot(4, 1, 3);
+plot(ts2, x2, '-b>'); grid on; title('Частота дискретизации 2000');
+xlabel('временные отсчеты');
+ylabel('Амплитуда');
+
+subplot(4, 1, 4);
+plot(ts3, x3, '-g.'); grid on; title('Частота дискретизации 1800');
+xlabel('временные отсчеты');
+ylabel('Амплитуда');
+
+figure;
+subplot(2, 1, 1);
+plot(ts4, x4, '-ro'); grid on; title('Увиличили амплитуду в 3 раза');
+xlabel('временные отсчеты');
+ylabel('Амплитуда');
+
+subplot(2, 1, 2);
+plot(ts5, x5, '-ro'); grid on; title('Уменьшили амплитуду в 3 раза');
+xlabel('временные отсчеты');
+ylabel('Амплитуда');
+
+%subplot(4, 1, 4);
+%plot(ts4, x4, '-ro') grid on;
+
+%title('Discretisations');
 xlabel('временные отсчеты');
 ylabel('Амплитуда');
 
