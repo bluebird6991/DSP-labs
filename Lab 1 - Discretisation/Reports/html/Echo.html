@@ -1,0 +1,165 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Echo</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-03-04"><meta name="DC.source" content="Echo.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">clear;
+
+[x, fs] = audioread(<span class="string">'rock.wav'</span>);
+<span class="comment">% &#1075;&#1088;&#1072;&#1092;&#1080;&#1082;&#1080; &#1080;&#1089;&#1093;&#1086;&#1076;&#1085;&#1086;&#1075;&#1086; &#1089;&#1080;&#1075;&#1085;&#1072;&#1083;&#1072; &#1076;&#1074;&#1072; &#1082;&#1072;&#1085;&#1072;&#1083;&#1072;</span>
+subplot(2, 1, 1);
+plot(x(:, 1)); grid <span class="string">on</span>;
+<span class="comment">%subplot(2, 1, 2);</span>
+<span class="comment">%plot(x(:, 2)); grid on;</span>
+
+a = 0.7; <span class="comment">%&#1072;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;</span>
+d = 5000; <span class="comment">%&#1082;&#1086;&#1083;&#1080;&#1095;&#1077;&#1089;&#1090;&#1074;&#1086; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1086;&#1074; &#1076;&#1083;&#1103; &#1079;&#1072;&#1076;&#1077;&#1088;&#1078;&#1082;&#1080;</span>
+<span class="comment">%{
+</span><span class="comment">y = zeros(size(x));
+</span><span class="comment">y = x;
+</span><span class="comment">for i = d+1 : length(x)
+</span><span class="comment">    y(i) = x(i) + a*x(i-d);
+</span><span class="comment">end
+</span><span class="comment">%}
+</span>
+N = length(x);
+
+delay_cnt = 3*fs;
+delay_max = round(0.007*fs);
+delay_1 = round(linspace(0, delay_max, delay_cnt));
+delay_2 = round(linspace(delay_max, 0, delay_cnt));
+delay = [delay_1 delay_2];
+n_rep = round(N / length(delay));
+delay = repmat(delay, 1, n_rep+1);
+
+y = zeros(1, N);
+<span class="keyword">for</span> i = 1 : N
+    n = i - delay(i);
+    <span class="keyword">if</span> n&gt;0
+        y(i)=x(i)+x(i);
+    <span class="keyword">else</span>
+        y(i)= x(i);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">%}</span>
+audiowrite(<span class="string">'rock-out.wav'</span>, y, fs);
+
+<span class="keyword">for</span> i = d+1 : length(x)
+    y(i) = x(i);
+<span class="keyword">end</span>
+
+sound(y(1 : 100000), fs);
+</pre><pre class="codeoutput">Warning: Data clipped when writing file. 
+</pre><img vspace="5" hspace="5" src="Echo_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+clear;
+
+[x, fs] = audioread('rock.wav');
+% графики исходного сигнала два канала
+subplot(2, 1, 1);
+plot(x(:, 1)); grid on;
+%subplot(2, 1, 2);
+%plot(x(:, 2)); grid on;
+
+a = 0.7; %амплитуда
+d = 5000; %количество отсчетов для задержки
+%{
+y = zeros(size(x));
+y = x;
+for i = d+1 : length(x)
+    y(i) = x(i) + a*x(i-d);
+end
+%}
+
+N = length(x);
+
+delay_cnt = 3*fs;
+delay_max = round(0.007*fs);
+delay_1 = round(linspace(0, delay_max, delay_cnt));
+delay_2 = round(linspace(delay_max, 0, delay_cnt));
+delay = [delay_1 delay_2];
+n_rep = round(N / length(delay));
+delay = repmat(delay, 1, n_rep+1);
+
+y = zeros(1, N);
+for i = 1 : N
+    n = i - delay(i);
+    if n>0
+        y(i)=x(i)+x(i);
+    else
+        y(i)= x(i);
+    end
+end
+%}
+audiowrite('rock-out.wav', y, fs);
+
+for i = d+1 : length(x)
+    y(i) = x(i);
+end
+
+sound(y(1 : 100000), fs);
+##### SOURCE END #####
+--></body></html>

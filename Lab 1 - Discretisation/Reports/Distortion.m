@@ -7,7 +7,7 @@ plot(x(:, 1)); grid on;
 %subplot(2, 1, 2);
 %plot(x(:, 2)); grid on;
 
-val = 0.1;
+val = 0.75;
 
 y = x;
 

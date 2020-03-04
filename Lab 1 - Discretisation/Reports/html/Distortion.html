@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>sem_1</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-02-19"><meta name="DC.source" content="sem_1.m"><style type="text/css">
+      --><title>Distortion</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-03-04"><meta name="DC.source" content="Distortion.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -68,41 +68,74 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
   </style></head><body><div class="content"><pre class="codeinput">clear;
 
-fs1 = 60;
-fs2 = 15;
-fs3 = 200;
+[x, Fs] = audioread(<span class="string">'rock.wav'</span>);
 
-ts1 = 0 : 1/fs1 : 5;
-ts2 = 0 : 1/fs2 : 5;
-ts3 = 0 : 1/fs3 : 5;
+subplot(2, 1, 1);
+plot(x(:, 1)); grid <span class="string">on</span>;
+<span class="comment">%subplot(2, 1, 2);</span>
+<span class="comment">%plot(x(:, 2)); grid on;</span>
 
-x1 = sin(2*pi*10*ts1);
-x2 = sin(2*pi*10*ts2);
-x3 = sin(2*pi*10*ts3);
-plot(ts1, x1, <span class="string">'-ro'</span>, ts2, x2, <span class="string">'-b&gt;'</span>, ts3, x3, <span class="string">'-g.'</span>); grid <span class="string">on</span>;
-title(<span class="string">'sem 1'</span>);
-xlabel(<span class="string">'&#1074;&#1088;&#1077;&#1084;&#1077;&#1085;&#1085;&#1099;&#1077; &#1086;&#1090;&#1089;&#1095;&#1077;&#1090;&#1099;'</span>);
-ylabel(<span class="string">'&#1040;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;'</span>);
-</pre><img vspace="5" hspace="5" src="sem_1_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+val = 0.75;
+
+y = x;
+
+<span class="keyword">for</span> i = 1:length(x)
+    <span class="keyword">if</span> y(i,1) &gt; val
+        y(i,1) = val;
+    <span class="keyword">end</span>
+    <span class="keyword">if</span> y(i,1) &lt; -val
+        y(i,1) = -val;
+    <span class="keyword">end</span>
+    <span class="comment">%if y(i,2) &gt; val</span>
+    <span class="comment">%    y(i,2) = val;</span>
+    <span class="comment">%end</span>
+    <span class="comment">%if y(i,2) &lt; -val</span>
+    <span class="comment">%    y(i,2) = -val;</span>
+    <span class="comment">%end</span>
+<span class="keyword">end</span>
+
+<span class="comment">%plot(y); grid on</span>
+subplot(2, 1, 2);
+plot(y(:, 1)); grid <span class="string">on</span>;
+audiowrite(<span class="string">'Distortion-out.wav'</span>, y, Fs)
+
+sound (y(1 : 100000), Fs)
+</pre><img vspace="5" hspace="5" src="Distortion_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 clear;
 
-fs1 = 60;
-fs2 = 15;
-fs3 = 200;
+[x, Fs] = audioread('rock.wav');
 
-ts1 = 0 : 1/fs1 : 5;
-ts2 = 0 : 1/fs2 : 5;
-ts3 = 0 : 1/fs3 : 5;
+subplot(2, 1, 1);
+plot(x(:, 1)); grid on;
+%subplot(2, 1, 2);
+%plot(x(:, 2)); grid on;
 
-x1 = sin(2*pi*10*ts1);
-x2 = sin(2*pi*10*ts2);
-x3 = sin(2*pi*10*ts3);
-plot(ts1, x1, '-ro', ts2, x2, '-b>', ts3, x3, '-g.'); grid on;
-title('sem 1');
-xlabel('временные отсчеты');
-ylabel('Амплитуда');
+val = 0.75;
 
+y = x;
+
+for i = 1:length(x)
+    if y(i,1) > val
+        y(i,1) = val;
+    end
+    if y(i,1) < -val
+        y(i,1) = -val;
+    end
+    %if y(i,2) > val
+    %    y(i,2) = val;
+    %end
+    %if y(i,2) < -val
+    %    y(i,2) = -val;
+    %end
+end
+
+%plot(y); grid on
+subplot(2, 1, 2);
+plot(y(:, 1)); grid on;
+audiowrite('Distortion-out.wav', y, Fs)
+
+sound (y(1 : 100000), Fs)
 
 ##### SOURCE END #####
 --></body></html>
