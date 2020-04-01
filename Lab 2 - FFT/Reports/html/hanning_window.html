@@ -1,0 +1,250 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>hanning_window</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-04-01"><meta name="DC.source" content="hanning_window.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">%### ?2 &#1054;&#1055;&#1056;&#1045;&#1044;&#1045;&#1051;&#1045;&#1053;&#1048;&#1045; &#1055;&#1054;&#1052;&#1045;&#1061;&#1048; &#1042; &#1057;&#1048;&#1043;&#1053;&#1051;&#1045; &#1055;&#1056;&#1048; &#1055;&#1054;&#1052;&#1054;&#1065;&#1048; &#1042;&#1047;&#1042;&#1045;&#1064;&#1040;&#1053;&#1053;&#1054;&#1043;&#1054; &#1054;&#1050;&#1053;&#1040; &#1061;&#1045;&#1053;&#1053;&#1048;&#1053;&#1043;&#1040; ###%</span>
+clear;
+close <span class="string">all</span>;
+
+fs = 9000;
+
+ts = 0  : 1/fs : 0.05-1/fs;
+N = length(ts);
+
+f01 = 4500;
+f02 = 4605;
+f03 = 4900;
+
+fp = 4905;
+ap = 0.2;
+
+x1 = sin(2*pi*f01*ts)+ap*sin(2*pi*fp*ts);
+x2 = sin(2*pi*f02*ts)+ap*sin(2*pi*fp*ts);
+x3 = sin(2*pi*f03*ts)+ap*sin(2*pi*fp*ts);
+
+X1 = abs(fft(x1));
+X2 = abs(fft(x2));
+X3 = abs(fft(x3));
+
+figure;
+subplot(3, 4, 1);
+plot(x1), grid <span class="string">on</span>; title([num2str(f01), <span class="string">'&#1043;&#1094;'</span>]);
+subplot(3, 4, 5);
+plot(x2); grid <span class="string">on</span>; title([num2str(f02), <span class="string">'&#1043;&#1094;'</span>]);
+subplot(3, 4, 9);
+plot(x3); grid <span class="string">on</span>; title([num2str(f03), <span class="string">'&#1043;&#1094;'</span>]);
+
+
+subplot(3, 4, 2);
+stem(X1, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([<span class="string">'&#1041;&#1055;&#1060; '</span>, num2str(f01), <span class="string">'&#1043;&#1094;'</span>]);
+subplot(3, 4, 6);
+stem(X2, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([<span class="string">'&#1041;&#1055;&#1060; '</span>, num2str(f02), <span class="string">'&#1043;&#1094;'</span>]);
+subplot(3, 4, 10);
+stem(X3, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([<span class="string">'&#1041;&#1055;&#1060; '</span>, num2str(f03), <span class="string">'&#1043;&#1094;'</span>]);
+
+h = hanning(N)';
+
+x1w = x1.*hanning(N)';
+x2w = x2.*hanning(N)';
+x3w = x3.*hanning(N)';
+
+x1t = x1.*triang(N)';
+x2t = x2.*triang(N)';
+x3t = x3.*triang(N)';
+
+subplot(3, 4, 3);
+stem(x1w), grid <span class="string">on</span>; title(<span class="string">"&#1059;&#1084;&#1085;&#1086;&#1078;&#1077;&#1085;&#1080;&#1077; &#1085;&#1072; &#1086;&#1082;&#1085;&#1086;"</span>);
+subplot(3, 4, 7);
+stem(x2w), grid <span class="string">on</span>; title(<span class="string">"&#1059;&#1084;&#1085;&#1086;&#1078;&#1077;&#1085;&#1080;&#1077; &#1085;&#1072; &#1086;&#1082;&#1085;&#1086;"</span>);
+subplot(3, 4, 11);
+stem(x3w), grid <span class="string">on</span>; title(<span class="string">"&#1059;&#1084;&#1085;&#1086;&#1078;&#1077;&#1085;&#1080;&#1077; &#1085;&#1072; &#1086;&#1082;&#1085;&#1086;"</span>);
+
+X1w = abs(fft(x1w));
+X2w = abs(fft(x2w));
+X3w = abs(fft(x3w));
+
+subplot(3, 4, 4);
+stem(X1w, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([num2str(f01), <span class="string">'&#1043;&#1094; &#1089; &#1086;&#1082;&#1085;&#1086;&#1084;'</span>]);
+subplot(3, 4, 8);
+stem(X2w, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([num2str(f02), <span class="string">'&#1043;&#1094; &#1089; &#1086;&#1082;&#1085;&#1086;&#1084;'</span>]);
+subplot(3, 4, 12);
+stem(X3w, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([num2str(f03), <span class="string">'&#1043;&#1094; &#1089; &#1086;&#1082;&#1085;&#1086;&#1084;'</span>]);
+
+figure;
+subplot(3, 3, 1);
+stem(X1, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([<span class="string">'&#1041;&#1055;&#1060;'</span> ,num2str(f01), <span class="string">'&#1043;&#1094;'</span>]);
+subplot(3, 3, 2);
+stem(X2, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([<span class="string">'&#1041;&#1055;&#1060;'</span> ,num2str(f02), <span class="string">'&#1043;&#1094;'</span>]);
+subplot(3, 3, 3);
+stem(X3, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([<span class="string">'&#1041;&#1055;&#1060;'</span> ,num2str(f03), <span class="string">'&#1043;&#1094;'</span>]);
+
+subplot(3, 3, 4);
+plot(x1t); grid <span class="string">on</span>; title(<span class="string">"&#1055;&#1088;&#1086;&#1080;&#1079;&#1074;&#1077;&#1076;&#1077;&#1085;&#1080;&#1077; &#1085;&#1072; &#1090;&#1088;&#1077;&#1091;&#1075;&#1086;&#1083;&#1100;&#1085;&#1077; &#1086;&#1082;&#1085;&#1086;"</span>);
+subplot(3, 3, 5);
+plot(x2t); grid <span class="string">on</span>; title(<span class="string">"&#1055;&#1088;&#1086;&#1080;&#1079;&#1074;&#1077;&#1076;&#1077;&#1085;&#1080;&#1077; &#1085;&#1072; &#1090;&#1088;&#1077;&#1091;&#1075;&#1086;&#1083;&#1100;&#1085;&#1077; &#1086;&#1082;&#1085;&#1086;"</span>);
+subplot(3, 3, 6);
+plot(x3t); grid <span class="string">on</span>; title(<span class="string">"&#1055;&#1088;&#1086;&#1080;&#1079;&#1074;&#1077;&#1076;&#1077;&#1085;&#1080;&#1077; &#1085;&#1072; &#1090;&#1088;&#1077;&#1091;&#1075;&#1086;&#1083;&#1100;&#1085;&#1077; &#1086;&#1082;&#1085;&#1086;"</span>);
+
+subplot(3, 3, 7);
+stem(X1w, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([num2str(f01), <span class="string">'&#1089; &#1086;&#1082;&#1085;&#1086;&#1084; &#1043;&#1062;'</span>]);
+subplot(3, 3, 8);
+stem(X2w, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([num2str(f02), <span class="string">'&#1089; &#1086;&#1082;&#1085;&#1086;&#1084; &#1043;&#1062;'</span>]);
+subplot(3, 3, 9);
+stem(X3w, <span class="string">"Marker"</span>, <span class="string">'*'</span>); grid <span class="string">on</span>; title([num2str(f03), <span class="string">'&#1089; &#1086;&#1082;&#1085;&#1086;&#1084; &#1043;&#1062;'</span>]);
+</pre><img vspace="5" hspace="5" src="hanning_window_01.png" alt=""> <img vspace="5" hspace="5" src="hanning_window_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%### ?2 ОПРЕДЕЛЕНИЕ ПОМЕХИ В СИГНЛЕ ПРИ ПОМОЩИ ВЗВЕШАННОГО ОКНА ХЕННИНГА ###%
+clear;
+close all;
+
+fs = 9000;
+
+ts = 0  : 1/fs : 0.05-1/fs;
+N = length(ts);
+
+f01 = 4500;
+f02 = 4605;
+f03 = 4900;
+
+fp = 4905;
+ap = 0.2;
+
+x1 = sin(2*pi*f01*ts)+ap*sin(2*pi*fp*ts);
+x2 = sin(2*pi*f02*ts)+ap*sin(2*pi*fp*ts);
+x3 = sin(2*pi*f03*ts)+ap*sin(2*pi*fp*ts);
+
+X1 = abs(fft(x1));
+X2 = abs(fft(x2));
+X3 = abs(fft(x3));
+
+figure;
+subplot(3, 4, 1);
+plot(x1), grid on; title([num2str(f01), 'Гц']);
+subplot(3, 4, 5);
+plot(x2); grid on; title([num2str(f02), 'Гц']);
+subplot(3, 4, 9);
+plot(x3); grid on; title([num2str(f03), 'Гц']);
+
+
+subplot(3, 4, 2);
+stem(X1, "Marker", '*'); grid on; title(['БПФ ', num2str(f01), 'Гц']);
+subplot(3, 4, 6);
+stem(X2, "Marker", '*'); grid on; title(['БПФ ', num2str(f02), 'Гц']);
+subplot(3, 4, 10);
+stem(X3, "Marker", '*'); grid on; title(['БПФ ', num2str(f03), 'Гц']);
+
+h = hanning(N)';
+
+x1w = x1.*hanning(N)';
+x2w = x2.*hanning(N)';
+x3w = x3.*hanning(N)';
+
+x1t = x1.*triang(N)';
+x2t = x2.*triang(N)';
+x3t = x3.*triang(N)';
+
+subplot(3, 4, 3);
+stem(x1w), grid on; title("Умножение на окно");
+subplot(3, 4, 7); 
+stem(x2w), grid on; title("Умножение на окно");
+subplot(3, 4, 11);
+stem(x3w), grid on; title("Умножение на окно");
+
+X1w = abs(fft(x1w));
+X2w = abs(fft(x2w));
+X3w = abs(fft(x3w));
+
+subplot(3, 4, 4);
+stem(X1w, "Marker", '*'); grid on; title([num2str(f01), 'Гц с окном']);
+subplot(3, 4, 8);
+stem(X2w, "Marker", '*'); grid on; title([num2str(f02), 'Гц с окном']);
+subplot(3, 4, 12);
+stem(X3w, "Marker", '*'); grid on; title([num2str(f03), 'Гц с окном']);
+
+figure;
+subplot(3, 3, 1);
+stem(X1, "Marker", '*'); grid on; title(['БПФ' ,num2str(f01), 'Гц']);
+subplot(3, 3, 2);
+stem(X2, "Marker", '*'); grid on; title(['БПФ' ,num2str(f02), 'Гц']);
+subplot(3, 3, 3);
+stem(X3, "Marker", '*'); grid on; title(['БПФ' ,num2str(f03), 'Гц']);
+
+subplot(3, 3, 4);
+plot(x1t); grid on; title("Произведение на треугольне окно");
+subplot(3, 3, 5);
+plot(x2t); grid on; title("Произведение на треугольне окно");
+subplot(3, 3, 6);
+plot(x3t); grid on; title("Произведение на треугольне окно");
+
+subplot(3, 3, 7);
+stem(X1w, "Marker", '*'); grid on; title([num2str(f01), 'с окном ГЦ']);
+subplot(3, 3, 8);
+stem(X2w, "Marker", '*'); grid on; title([num2str(f02), 'с окном ГЦ']);
+subplot(3, 3, 9);
+stem(X3w, "Marker", '*'); grid on; title([num2str(f03), 'с окном ГЦ']);
+##### SOURCE END #####
+--></body></html>
