@@ -19,9 +19,9 @@ plot(x); grid on; title('сигналы идут одновременно');
 subplot(2,2,2);
 stem(abs(fft(x))); grid on; title('БПФ сигналы идут одновременно');
 
-t1= 0 : 1/Fs : 1-1/Fs;
-t2= 1 : 1/Fs : 2-1/Fs;
-t3= 2 : 1/Fs : 3-1/Fs;
+t1 = 0 : 1/Fs : 1-1/Fs;
+t2 = 1 : 1/Fs : 2-1/Fs;
+t3 = 2 : 1/Fs : 3-1/Fs;
 
 l1 = length(t1);
 l2 = length(t2);
@@ -37,9 +37,29 @@ plot(x1); grid on; title('Сигналы идут друг за другом');
 subplot(2,2,4);
 stem(abs(fft(x1))); grid on; title('БПФ сигналы идут друг за другом');
 
-[WX,freq] = wft(x,Fs,'f0',0.05);
 
 figure;
+
+subplot(2, 2, 1);
+[WX,freq] = wft(x1,Fs,'f0',0.01);
 srf = surf(ts, freq, abs(WX));
-set(srf, 'LineStyle', 'none');
+set(srf, 'LineStyle', 'none'); title('0.01');
+xlabel('Время'); ylabel('Частота'); zlabel('Амплитуда');
+
+subplot(2, 2, 2);
+[WX,freq] = wft(x1,Fs,'f0',0.05);
+srf = surf(ts, freq, abs(WX));
+set(srf, 'LineStyle', 'none'); title('0.05')
+xlabel('Время'); ylabel('Частота'); zlabel('Амплитуда');
+
+subplot(2, 2, 3);
+[WX,freq] = wft(x1,Fs,'f0',0.1);
+srf = surf(ts, freq, abs(WX));
+set(srf, 'LineStyle', 'none'); title('0.1')
+xlabel('Время'); ylabel('Частота'); zlabel('Амплитуда');
+
+subplot(2, 2, 4);
+[WX,freq] = wft(x1,Fs,'f0',0.5);
+srf = surf(ts, freq, abs(WX));
+set(srf, 'LineStyle', 'none'); title('0.5')
 xlabel('Время'); ylabel('Частота'); zlabel('Амплитуда');
