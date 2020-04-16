@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Avg</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-04-14"><meta name="DC.source" content="Avg.m"><style type="text/css">
+      --><title>Avg</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-04-16"><meta name="DC.source" content="Avg.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -70,6 +70,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 clear;
 close <span class="string">all</span>;
 
+
 Fs = 97;
 ts = 0: 1/Fs : 16-1/Fs;
 N = length(ts);
@@ -87,9 +88,10 @@ figure;
 subplot(2,1,1);
 plot(x); grid <span class="string">on</span>; title(<span class="string">'&#1048;&#1089;&#1093;&#1086;&#1076;&#1085;&#1099;&#1081; &#1089;&#1080;&#1075;&#1085;&#1072;&#1083;'</span>);
 
-y = zeros(1,N+6);
-<span class="keyword">for</span> i = 6 : length(x)
-   y(i) = (x(i-1) + x(i-2) + x(i-3) + x(i-4) + x(i-5))*1/5;
+y = zeros(1,N+8);
+<span class="keyword">for</span> i = 8 : length(x)
+   y(i) = (x(i - 1) + x(i - 2) + x(i - 3) + x(i - 4)<span class="keyword">...</span>
+       + x(i - 5) + x(i - 6) + x(i - 7)) / 7;
 <span class="keyword">end</span>
 
 subplot(2,1,2);
@@ -104,9 +106,10 @@ subplot(2, 1, 1);
 stem(x); grid <span class="string">on</span>; title(<span class="string">'&#1060;&#1091;&#1085;&#1082;&#1094;&#1080;&#1103; &#1044;&#1080;&#1088;&#1072;&#1082;&#1090;&#1072;'</span>);
 xlabel(<span class="string">'&#1042;&#1088;&#1077;&#1084;&#1103;'</span>); ylabel(<span class="string">'&#1040;&#1084;&#1087;&#1083;&#1080;&#1090;&#1091;&#1076;&#1072;'</span>);
 
-z = zeros(1, N + 6);
-<span class="keyword">for</span> i = 6 : length(x)
-    y(i) = (x(i - 1) + x(i - 2) + x(i - 3) + x(i - 4) + x(i - 5)) / 5;
+z = zeros(1, N + 8);
+<span class="keyword">for</span> i = 8 : length(x)
+    y(i) = (x(i - 1) + x(i - 2) + x(i - 3) + x(i - 4)<span class="keyword">...</span>
+        + x(i - 5) + x(i - 6) + x(i - 7)) / 7;
 <span class="keyword">end</span>
 
 subplot(2, 1, 2);
@@ -117,6 +120,7 @@ xlabel(<span class="string">'&#1042;&#1088;&#1077;&#1084;&#1103;'</span>); ylabe
 %### 1 БЕРЕМ СРЕДНЕЕ ###%
 clear;
 close all;
+
 
 Fs = 97;
 ts = 0: 1/Fs : 16-1/Fs;
@@ -135,9 +139,10 @@ figure;
 subplot(2,1,1);
 plot(x); grid on; title('Исходный сигнал');
 
-y = zeros(1,N+6);
-for i = 6 : length(x)
-   y(i) = (x(i-1) + x(i-2) + x(i-3) + x(i-4) + x(i-5))*1/5;
+y = zeros(1,N+8);
+for i = 8 : length(x)
+   y(i) = (x(i - 1) + x(i - 2) + x(i - 3) + x(i - 4)...
+       + x(i - 5) + x(i - 6) + x(i - 7)) / 7;
 end
 
 subplot(2,1,2);
@@ -152,9 +157,10 @@ subplot(2, 1, 1);
 stem(x); grid on; title('Функция Диракта');
 xlabel('Время'); ylabel('Амплитуда');
 
-z = zeros(1, N + 6);
-for i = 6 : length(x)
-    y(i) = (x(i - 1) + x(i - 2) + x(i - 3) + x(i - 4) + x(i - 5)) / 5;
+z = zeros(1, N + 8);
+for i = 8 : length(x)
+    y(i) = (x(i - 1) + x(i - 2) + x(i - 3) + x(i - 4)...
+        + x(i - 5) + x(i - 6) + x(i - 7)) / 7;
 end
 
 subplot(2, 1, 2);

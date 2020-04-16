@@ -20,9 +20,10 @@ figure;
 subplot(2,1,1);
 plot(x); grid on; title('Исходный сигнал');
 
-y = zeros(1,N+6);
-for i = 6 : length(x)
-   y(i) = (x(i-1) + x(i-2) + x(i-3) + x(i-4) + x(i-5))*1/5;
+y = zeros(1,N+8);
+for i = 8 : length(x)
+   y(i) = (x(i - 1) + x(i - 2) + x(i - 3) + x(i - 4)...
+       + x(i - 5) + x(i - 6) + x(i - 7)) / 7;
 end
 
 subplot(2,1,2);
@@ -37,9 +38,10 @@ subplot(2, 1, 1);
 stem(x); grid on; title('Функция Диракта');
 xlabel('Время'); ylabel('Амплитуда');
 
-z = zeros(1, N + 6);
-for i = 6 : length(x)
-    y(i) = (x(i - 1) + x(i - 2) + x(i - 3) + x(i - 4) + x(i - 5)) / 5;
+z = zeros(1, N + 8);
+for i = 8 : length(x)
+    y(i) = (x(i - 1) + x(i - 2) + x(i - 3) + x(i - 4)...
+        + x(i - 5) + x(i - 6) + x(i - 7)) / 7;
 end
 
 subplot(2, 1, 2);

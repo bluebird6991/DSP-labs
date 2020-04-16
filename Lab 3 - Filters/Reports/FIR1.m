@@ -41,7 +41,9 @@ subplot(2, 2, 1);
 plot(x); hold on; title('Исходный сигнал');
 xlabel('Время'); ylabel('Амплитуда');
 X = abs(fft(x));
+
 Xm = 2*abs(X)/N;
+X = (0: N - 1) * Fs / N;
 subplot(2, 2, 2);
 plot(X, Xm); grid on; title('БПФ Исходного сигнала');
 xlabel('Частота'); ylabel('Амплитуда');
